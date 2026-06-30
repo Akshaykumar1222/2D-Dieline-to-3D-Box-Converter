@@ -75,7 +75,8 @@ export const FACES: FaceConfig[] = [
     pivot: [-W / 2, 0, 0],
     offset: [-H / 2, 0, 0],
     axis: "y",
-    targetRotation: -Math.PI / 2,
+    // Positive Y rotation raises this wall upward from the base.
+    targetRotation: Math.PI / 2,
     startAt: 0.15,
     endAt: 0.75,
   },
@@ -86,7 +87,8 @@ export const FACES: FaceConfig[] = [
     pivot: [W / 2, 0, 0],
     offset: [H / 2, 0, 0],
     axis: "y",
-    targetRotation: Math.PI / 2,
+    // Negative Y rotation raises this wall upward from the base.
+    targetRotation: -Math.PI / 2,
     startAt: 0.15,
     endAt: 0.75,
   },
