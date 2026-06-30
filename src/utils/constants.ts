@@ -94,11 +94,12 @@ export const FACES: FaceConfig[] = [
     name: "top",
     color: "#eab308",
     size: [W, D],
-    // Lid is attached to the back panel's far edge in the flat layout.
-    pivot: [0, D / 2, 0],
-    offset: [0, D / 2, 0], // sits beyond back panel when flat
+    // Lid is a CHILD of the back panel. Pivot is the back panel's far edge
+    // (local y = H) in back's local frame; lid extends beyond by D/2.
+    pivot: [0, H, 0],
+    offset: [0, D / 2, 0],
     axis: "x",
-    targetRotation: Math.PI, // folds all the way over to close lid
+    targetRotation: -Math.PI / 2, // folds down onto the box once back is up
     startAt: 0.7,
     endAt: 1.0,
   },
