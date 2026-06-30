@@ -12,14 +12,16 @@ import { useAnimation } from "@/hooks/useAnimation";
 interface FaceProps {
   face: FaceConfig;
   texture: THREE.Texture | null;
+  children?: React.ReactNode;
 }
 
 /**
  * One foldable panel. The outer Group is positioned at the hinge (crease)
  * and rotated to fold. The inner mesh is offset so the plane lies flat
- * (relative to its hinge) at rotation = 0.
+ * (relative to its hinge) at rotation = 0. Children render inside the
+ * rotating group — used to nest the lid inside the back panel.
  */
-function Face({ face, texture }: FaceProps) {
+function Face({ face, texture, children }: FaceProps) {
   const groupRef = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.MeshStandardMaterial>(null);
 
@@ -32,7 +34,6 @@ function Face({ face, texture }: FaceProps) {
     [face.size],
   );
 
-  // Animate rotation each frame based on global fold progress.
   useFrame(() => {
     const g = groupRef.current;
     if (!g) return;
@@ -43,7 +44,6 @@ function Face({ face, texture }: FaceProps) {
     else g.rotation.y = rot;
   });
 
-  // Apply / refresh texture when it changes.
   useEffect(() => {
     if (matRef.current) {
       matRef.current.map = texture;
@@ -52,10 +52,7 @@ function Face({ face, texture }: FaceProps) {
   }, [texture]);
 
   return (
-    <group
-      ref={groupRef}
-      position={face.pivot}
-    >
+    <group ref={groupRef} position={face.pivot}>
       <mesh
         position={face.offset}
         castShadow
@@ -73,6 +70,7 @@ function Face({ face, texture }: FaceProps) {
       <lineSegments position={face.offset} geometry={edgeGeo}>
         <lineBasicMaterial color="#111111" />
       </lineSegments>
+      {children}
     </group>
   );
 }
