@@ -97,11 +97,22 @@ export function BoxBuilder({ textureUrl }: BoxBuilderProps) {
   }, [texture]);
 
   // Lift bottom slightly off the ground so the shadow is visible.
+  const topFace = FACES.find((f) => f.name === "top")!;
+  const others = FACES.filter((f) => f.name !== "top");
+
   return (
     <group position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      {FACES.map((f) => (
-        <Face key={f.name} face={f} texture={texture} />
-      ))}
+      {others.map((f) =>
+        f.name === "back" ? (
+          <Face key={f.name} face={f} texture={texture}>
+            {/* Top lid is a child of back, so it folds relative to back's
+                top edge — producing a real closing box. */}
+            <Face face={topFace} texture={texture} />
+          </Face>
+        ) : (
+          <Face key={f.name} face={f} texture={texture} />
+        ),
+      )}
     </group>
   );
 }
