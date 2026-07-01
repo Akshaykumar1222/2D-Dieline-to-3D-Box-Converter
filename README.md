@@ -37,24 +37,24 @@ https://2d-dieline-to-3d-box-converter.vercel.app/
 <tr>
 <td align="center">
 <b>Home Page</b><br>
-<img src="screenshots/home-page.png" width="450">
+<img src="screenshots/home-page.png" width="450" height="300">
 </td>
 
 <td align="center">
 <b>Upload Panel</b><br>
-<img src="screenshots/upload-panel.png" width="450">
+<img src="screenshots/upload-panel.png" width="450" height="300">
 </td>
 </tr>
 
 <tr>
 <td align="center">
 <b>Animation Controls</b><br>
-<img src="screenshots/controls-panel.png" width="450">
+<img src="screenshots/controls-panel.png" width="450" height="300">
 </td>
 
 <td align="center">
 <b>Fully Folded 3D Box</b><br>
-<img src="screenshots/folded-box.png" width="450">
+<img src="screenshots/folded-box.png" width="450" height="300">
 </td>
 </tr>
 </table>
