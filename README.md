@@ -1,100 +1,184 @@
-# 2D Dieline → 3D Box Builder
+# 📦 Dieline to 3D Box Converter
 
-Convert a flat PNG dieline into a foldable 3D box in the browser, with smooth
-per-panel hinge animation built on Three.js + React Three Fiber.
+An interactive web application that transforms a flat **2D dieline** into a realistic **3D foldable box** using **React**, **Three.js**, and **React Three Fiber**.
 
-## Installation
+The application provides an intuitive interface for uploading dieline images, visualizing the folding process, controlling animation, and interacting with the generated 3D model in real time.
+
+---
+
+## 🌐 Live Demo
+
+**Live Application**
+
+https://2d-dieline-to-3d-box-converter.vercel.app/
+
+---
+
+## 🚀 Features
+
+- 📤 Upload PNG/JPG dieline images
+- 🖼️ Real-time 2D preview
+- 📦 Interactive 3D box generation
+- 🎬 Smooth folding animation
+- ▶️ Fold, Reset and Replay controls
+- ⚡ Adjustable animation speed
+- 📈 Interactive fold progress slider
+- 🖱️ Orbit camera controls
+- 📸 Screenshot capture
+- 🖥️ Fullscreen mode
+- 📱 Responsive layout
+
+---
+
+# 📸 Application Preview
+
+## Home Page
+
+![Home Page](screenshots/home-page.png)
+
+---
+
+## Upload Panel
+
+![Upload Panel](screenshots/upload-panel.png)
+
+---
+
+## Animation Controls
+
+![Controls](screenshots/controls-panel.png)
+
+---
+
+## Fully Folded 3D Box
+
+![Folded Box](screenshots/folded-box.png)
+
+---
+
+# 🛠️ Technology Stack
+
+### Frontend
+
+- React 19
+- TypeScript
+- Vite
+
+### 3D Graphics
+
+- Three.js
+- React Three Fiber
+- Drei
+
+### State Management
+
+- Zustand
+
+### UI
+
+- Tailwind CSS
+- shadcn/ui
+- Lucide React
+
+---
+
+# ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Akshaykumar1222/2D-Dieline-to-3D-Box-Converter.git
+```
+
+Navigate into the project
+
+```bash
+cd 2D-Dieline-to-3D-Box-Converter
+```
+
+Install dependencies
 
 ```bash
 npm install
+```
+
+Run the development server
+
+```bash
 npm run dev
 ```
 
-Open the printed local URL in a browser.
+---
 
-## Libraries
-
-- **React 19 + TypeScript** — UI
-- **Vite** — bundler (via TanStack Start template)
-- **Three.js** — 3D rendering
-- **@react-three/fiber** — declarative React renderer for Three
-- **@react-three/drei** — `OrbitControls`, `PerspectiveCamera` helpers
-- **TailwindCSS v4** — styling
-- **Zustand** — animation state store
-- **shadcn/ui (Radix)** — buttons & sliders
-- **lucide-react** — icons
-
-## Architecture
+# 📂 Project Structure
 
 ```
 src/
-  components/
-    UploadPanel.tsx        Upload + drag/drop + preview
-    ThreeScene.tsx         <Canvas>, lights, ground, camera, OrbitControls
-    BoxBuilder.tsx         6 face groups, animated each frame
-    Controls.tsx           Fold/Reset/Replay, speed + progress sliders
-    AnimationController.tsx  useFrame loop that drives fold progress
-  hooks/
-    useAnimation.ts        Zustand store for progress/playing/speed
-    useUpload.ts           File → ObjectURL + lifecycle
-  utils/
-    constants.ts           Box dimensions + per-face hinge config
-    geometry.ts            Cached PlaneGeometry/EdgesGeometry + easing
-    parser.ts              Image decode helper
-  routes/index.tsx         Page layout (header / left panel / canvas / footer)
+│
+├── components/
+│   ├── UploadPanel
+│   ├── ThreeScene
+│   ├── BoxBuilder
+│   ├── Controls
+│   └── AnimationController
+│
+├── hooks/
+│
+├── utils/
+│
+├── routes/
+│
+├── App.tsx
+└── main.tsx
 ```
 
-## Animation explained
+---
 
-A single fold value `progress ∈ [0, 1]` lives in a Zustand store
-(`useAnimation`). `AnimationController` is a tiny R3F component that runs in
-`useFrame` and integrates `progress` over time using
-`dt / BASE_DURATION_MS * speed * direction` — no jumps, smooth across any
-frame rate. The base duration is 2 seconds.
+# ⚡ How It Works
 
-Each face reads `progress` every frame and computes its **own** local progress
-through a per-face `[startAt, endAt]` window with smoothstep easing. That's
-what gives the realistic order: sides fold before the lid, lid closes last.
+1. Upload a dieline image.
+2. The image is prepared for visualization.
+3. Individual box faces are generated in a Three.js scene.
+4. Each face rotates around predefined hinge points.
+5. Fold progress is animated smoothly using easing functions.
+6. Users can rotate, zoom, replay, and capture the final folded box.
 
-## How hinge rotations work
+---
 
-Every panel is built as:
+# ✨ Key Highlights
 
-```
-<group position={hingePivot} rotation={fold}>   ← rotated
-  <mesh position={offsetFromPivot} />            ← static
-</group>
-```
+- Real-time 3D rendering
+- Hinge-based folding animation
+- Interactive camera controls
+- Responsive interface
+- Adjustable animation controls
+- Screenshot export
+- Fullscreen visualization
+- Modern React architecture
 
-The plane is offset from the group's origin by half its dimension along the
-fold direction, so the panel's edge sits exactly on the hinge line. Rotating
-the **group** (not the mesh) makes the panel pivot around that edge — exactly
-like a cardboard crease.
+---
 
-Hinge config (from `utils/constants.ts`):
+# 🔮 Future Enhancements
 
-| Face   | Pivot            | Axis | Target  | Window      |
-| ------ | ---------------- | ---- | ------- | ----------- |
-| Bottom | (0, 0, 0)        | —    | 0       | —           |
-| Front  | (0, −D/2, 0)     | X    | −90°    | 0.0 → 0.6   |
-| Back   | (0, +D/2, 0)     | X    | +90°    | 0.0 → 0.6   |
-| Left   | (−W/2, 0, 0)     | Y    | −90°    | 0.15 → 0.75 |
-| Right  | (+W/2, 0, 0)     | Y    | +90°    | 0.15 → 0.75 |
-| Top    | (0, +D/2, 0)     | X    | +180°   | 0.7 → 1.0   |
+- Automatic dieline detection
+- Support for multiple box templates
+- Texture mapping for individual faces
+- Export as GLTF/OBJ
+- Physics-based folding simulation
+- Custom box dimension support
 
-The top lid shares the back panel's hinge in the flat layout and folds last,
-all the way over (π rad) to close the box.
+---
 
-## Features
+# 👨‍💻 Developer
 
-- Upload PNG/JPG (click or drag & drop) — used as a texture on all faces
-- Fold / Reset / Replay
-- Animation-speed slider (0.25× – 3×)
-- Scrubbable fold-progress slider
-- Orbit controls with damping
-- Auto-rotate once the box is fully closed
-- Fullscreen, PNG screenshot export
-- Responsive layout (mobile → stacked, desktop → side-by-side)
-- Grid + shadow-receiving ground plane
-- Black edge lines on every panel via `EdgesGeometry`
-- Memoised geometries, cleaned-up textures and object URLs
+**Akshay Kumar**
+
+GitHub
+
+https://github.com/Akshaykumar1222
+
+---
+
+# 📄 License
+
+This project is created for educational, portfolio, and demonstration purposes.
