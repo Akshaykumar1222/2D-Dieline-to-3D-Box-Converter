@@ -1,4 +1,4 @@
-# 📦 Dieline to 3D Box Converter
+# 📦 2D Dieline to 3D Box Converter
 
 An interactive web application that transforms a flat **2D dieline** into a realistic **3D foldable box** using **React**, **Three.js**, and **React Three Fiber**.
 
@@ -30,29 +30,34 @@ https://2d-dieline-to-3d-box-converter.vercel.app/
 
 ---
 
+
 # 📸 Application Preview
 
-## Home Page
+<table>
+<tr>
+<td align="center">
+<b>Home Page</b><br>
+<img src="screenshots/home-page.png" width="450">
+</td>
 
-![Home Page](screenshots/home-page.png)
+<td align="center">
+<b>Upload Panel</b><br>
+<img src="screenshots/upload-panel.png" width="450">
+</td>
+</tr>
 
----
+<tr>
+<td align="center">
+<b>Animation Controls</b><br>
+<img src="screenshots/controls-panel.png" width="450">
+</td>
 
-## Upload Panel
-
-![Upload Panel](screenshots/upload-panel.png)
-
----
-
-## Animation Controls
-
-![Controls](screenshots/controls-panel.png)
-
----
-
-## Fully Folded 3D Box
-
-![Folded Box](screenshots/folded-box.png)
+<td align="center">
+<b>Fully Folded 3D Box</b><br>
+<img src="screenshots/folded-box.png" width="450">
+</td>
+</tr>
+</table>
 
 ---
 
