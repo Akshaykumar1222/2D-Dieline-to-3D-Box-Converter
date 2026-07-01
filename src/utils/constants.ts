@@ -101,7 +101,7 @@ export const FACES: FaceConfig[] = [
     pivot: [0, H, 0],
     offset: [0, D / 2, 0],
     axis: "x",
-    targetRotation: -Math.PI / 2, // folds down onto the box once back is up
+    targetRotation: Math.PI / 2, // folds inward from the back wall to seal the box
     startAt: 0.7,
     endAt: 1.0,
   },
